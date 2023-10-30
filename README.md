@@ -1,5 +1,5 @@
-# Firebase Powered Shopping App
-
+#Firebase Powered Shopping App 
+Real Time Shopping app made using React Native
 Video Testing the project: https://drive.google.com/file/d/1yoAcUTnZvUVxvH_Jjks_YAGVl0vsTpcz/view?usp=sharing
 
 ## Running the project
