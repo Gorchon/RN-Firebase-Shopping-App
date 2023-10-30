@@ -1,0 +1,39 @@
+import * as React from 'react';
+import * as RN from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {database} from '../config/fb';
+import {collection, onSnapshot, query, orderBy, QuerySnapshot} from 'firebase/firestore';
+import Product from '../components /Product';
+B
+
+eBxport default function Home(){
+    const navigation = useNavigation();
+    const [Products, setProducts] = React.useState([]);
+B
+    React.useEffect(() => {
+        const collectionRef =  collection(database, 'products')
+        const q = query(collectionRef, orderBy('createdAt' , 'desc'))
+
+        const unsuscribe = onSnapshot(q, querySnapshot => {
+            setProducts(
+                QuerySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    emoji: doc.data().emoji,
+                    name: doc.data().name,
+                    price: doc.data().price,
+                    isSold: doc.data().isSold,
+                    createAt: doc.data().createAt,  
+                })
+            )
+            )})
+            return unsuscribe;
+    }, []); 
+
+    return (
+        <RN.View>
+            <RN.Text> Products</RN.Text>
+            {Products.map(product => <Product key={product.id} {...product} />)} 
+            <RN.Button title="Go to Add Screen ma bro" onPress={() => navigation.navigate('Add')} />
+        </RN.View>
+    );
+}
